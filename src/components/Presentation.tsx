@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from './Presentation.module.css';
 import TitleSlide from './slides/TitleSlide';
 import ToolsOverviewSlide from './slides/ToolsOverviewSlide';
@@ -8,9 +9,14 @@ import ConclusionsSlide from './slides/ConclusionsSlide';
 import QRCodesSlide from './slides/QRCodesSlide';
 
 const Presentation: React.FC = () => {
-  const [currentSlide, setCurrentSlide] = useState(1);
+  const { slideNumber } = useParams<{ slideNumber?: string }>();
+  const navigate = useNavigate();
+  
   const totalSlides = 6;
   const [visitedSlides, setVisitedSlides] = useState(new Set([1]));
+
+  // Определяем текущий слайд из URL или устанавливаем 1 по умолчанию
+  const currentSlide = slideNumber ? parseInt(slideNumber, 10) : 1;
 
   const slides = [
     { id: 1, component: TitleSlide },
@@ -21,34 +27,61 @@ const Presentation: React.FC = () => {
     { id: 6, component: QRCodesSlide },
   ];
 
+  const updateURL = useCallback((slideNum: number) => {
+    if (slideNum === 1) {
+      navigate('/');
+    } else {
+      navigate(`/slide/${slideNum}`);
+    }
+  }, [navigate]);
+
   const nextSlide = useCallback(() => {
     if (currentSlide < totalSlides) {
       const newSlide = currentSlide + 1;
-      setCurrentSlide(newSlide);
+      updateURL(newSlide);
       setVisitedSlides(prev => {
         const newSet = new Set(prev);
         newSet.add(newSlide);
         return newSet;
       });
     }
-  }, [currentSlide, totalSlides]);
+  }, [currentSlide, totalSlides, updateURL]);
 
   const previousSlide = useCallback(() => {
     if (currentSlide > 1) {
-      setCurrentSlide(currentSlide - 1);
+      const newSlide = currentSlide - 1;
+      updateURL(newSlide);
     }
-  }, [currentSlide]);
+  }, [currentSlide, updateURL]);
 
   const goToSlide = useCallback((slideNumber: number) => {
     if (slideNumber >= 1 && slideNumber <= totalSlides) {
-      setCurrentSlide(slideNumber);
+      updateURL(slideNumber);
       setVisitedSlides(prev => {
         const newSet = new Set(prev);
         newSet.add(slideNumber);
         return newSet;
       });
     }
-  }, [totalSlides]);
+  }, [totalSlides, updateURL]);
+
+  // Обновляем visitedSlides при изменении текущего слайда
+  useEffect(() => {
+    if (currentSlide >= 1 && currentSlide <= totalSlides) {
+      setVisitedSlides(prev => {
+        const newSet = new Set(prev);
+        newSet.add(currentSlide);
+        return newSet;
+      });
+    }
+  }, [currentSlide, totalSlides]);
+
+  // Перенаправляем на первый слайд, если URL некорректный
+  useEffect(() => {
+    if (slideNumber && (isNaN(currentSlide) || currentSlide < 1 || currentSlide > totalSlides)) {
+      navigate('/');
+    }
+  }, [slideNumber, currentSlide, totalSlides, navigate]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
