@@ -3,16 +3,13 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
-# Добавляем разрешения для GITHUB_TOKEN
+# Важные разрешения
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Разрешаем только один деплой одновременно
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -20,6 +17,11 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    
+    # Добавляем environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     
     steps:
     - name: Checkout
