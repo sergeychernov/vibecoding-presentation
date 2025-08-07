@@ -1,0 +1,47 @@
+.scrollableWrapper {
+  height: calc(100vh - 200px);
+  overflow: hidden;
+}
+
+.taskBorderLeft {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.taskBorderLeft.conditional {
+  background: var(--color-orange-500);
+}
+
+.taskBorderLeft.satisfactory {
+  background: var(--color-primary);
+}
+
+.taskBorderLeft.excellent {
+  background: var(--color-success);
+}
+
+.taskTitle {
+  color: var(--color-primary);
+  margin-bottom: var(--space-16);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.taskDescription {
+  margin-bottom: var(--space-12);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  line-height: var(--line-height-normal);
+}
+
+.taskTool {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

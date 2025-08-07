@@ -1,0 +1,123 @@
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(100px) scale(0.3) rotate(-10deg);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-20px) scale(1.1) rotate(5deg);
+  }
+  70% {
+    transform: translateY(10px) scale(0.95) rotate(-2deg);
+  }
+  85% {
+    transform: translateY(-5px) scale(1.02) rotate(1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.modelCard {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: var(--shadow-sm);
+  opacity: 0;
+  transform: translateY(100px) scale(0.3) rotate(-10deg);
+  width: 100%;
+  max-width: 200px;
+}
+
+.modelCard.animate {
+  animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+.modelCard:hover {
+  transform: translateY(-12px) scale(1.08) rotate(2deg);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.modelCard:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.modelIcon {
+  font-size: 2.5rem;
+  margin-bottom: var(--space-16);
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.modelCard:hover .modelIcon {
+  transform: scale(1.3) rotate(15deg);
+  animation: iconPulse 0.6s ease-in-out;
+}
+
+.modelCard.animate .modelIcon {
+  animation: iconPulse 1s ease-in-out 0.5s;
+}
+
+.modelCard h3 {
+  margin-bottom: var(--space-8);
+  color: var(--color-text);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  transition: color 0.3s ease;
+}
+
+.modelCard:hover h3 {
+  color: var(--color-primary);
+}
+
+.modelCard p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.modelCard:hover p {
+  color: var(--color-text);
+}
+
+/* Добавляем специальные эффекты для разных карточек */
+.modelCard:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.modelCard:nth-child(2) {
+  animation-delay: 100ms;
+}
+
+.modelCard:nth-child(3) {
+  animation-delay: 200ms;
+}
+
+.modelCard:nth-child(4) {
+  animation-delay: 300ms;
+}
+
+.modelCard:nth-child(5) {
+  animation-delay: 400ms;
+}
+
+.modelCard:nth-child(6) {
+  animation-delay: 500ms;
+}

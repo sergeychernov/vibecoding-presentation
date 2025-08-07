@@ -1,0 +1,47 @@
+.titleSlide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.subtitle {
+  font-size: var(--font-size-xl);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-32);
+  font-weight: var(--font-weight-medium);
+}
+
+.titleDecoration {
+  display: flex;
+  gap: var(--space-12);
+  margin-top: var(--space-32);
+}
+
+.decorationCircle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: pulse 2s infinite;
+}
+
+.decorationCircle:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.decorationCircle:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}

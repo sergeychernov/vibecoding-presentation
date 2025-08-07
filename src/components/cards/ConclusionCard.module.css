@@ -1,0 +1,371 @@
+.cardContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* === МОЛНИЯ === */
+.lightningContainer {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.lightning {
+  width: 100%;
+  height: 100%;
+  animation: lightningFlash 0.8s ease-out;
+}
+
+.lightningPath {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: lightningStrike 0.6s ease-out forwards;
+}
+
+@keyframes lightningFlash {
+  0%, 100% { opacity: 0; }
+  10%, 30%, 50% { opacity: 1; }
+  20%, 40% { opacity: 0.3; }
+}
+
+@keyframes lightningStrike {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* === ВЗРЫВ === */
+.explosionContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.explosionCore {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #fff 0%, #ff6b6b 30%, #ff4757 70%, transparent 100%);
+  border-radius: 50%;
+  animation: explosionCore 0.8s ease-out;
+}
+
+.explosionRing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border: 3px solid #ff6b6b;
+  border-radius: 50%;
+  animation: explosionRing 1s ease-out;
+}
+
+.explosionShockwave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(255, 107, 107, 0.5);
+  border-radius: 50%;
+  animation: explosionShockwave 1.2s ease-out;
+}
+
+.explosionParticle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--size);
+  height: var(--size);
+  background: linear-gradient(45deg, #ff6b6b, #ffa500, #ffff00);
+  border-radius: 50%;
+  animation: explosionParticle 1s ease-out var(--delay);
+  transform-origin: center;
+}
+
+@keyframes explosionCore {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  50% {
+    width: 40px;
+    height: 40px;
+    opacity: 0.8;
+  }
+  100% {
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+  }
+}
+
+@keyframes explosionRing {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+    border-width: 5px;
+  }
+  100% {
+    width: 120px;
+    height: 120px;
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+@keyframes explosionShockwave {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.8;
+  }
+  100% {
+    width: 200px;
+    height: 200px;
+    opacity: 0;
+  }
+}
+
+@keyframes explosionParticle {
+  0% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateX(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateX(var(--distance)) scale(0);
+    opacity: 0;
+  }
+}
+
+/* === КАРТОЧКА === */
+.conclusionCard {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  opacity: 0;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Энергетическое поле - убрано для меньшего отвлечения */
+.energyField {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    transparent 0%, 
+    rgba(0, 212, 255, 0.05) 25%, 
+    transparent 50%, 
+    rgba(255, 107, 107, 0.05) 75%, 
+    transparent 100%);
+  border-radius: var(--radius-lg);
+  opacity: 0;
+  z-index: -1;
+}
+
+/* Окружающие частицы - убраны для меньшего отвлечения */
+.ambientParticles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.ambientParticle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 2px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.3), transparent);
+  border-radius: 50%;
+  opacity: 0;
+  transform-origin: center;
+}
+
+/* Анимации появления карточки */
+.conclusionCard.fromLeft {
+  transform: translateX(-200px) rotateY(-30deg) scale(0.5);
+}
+
+.conclusionCard.fromRight {
+  transform: translateX(200px) rotateY(30deg) scale(0.5);
+}
+
+.conclusionCard.animate {
+  opacity: 1;
+  transform: translateX(0) rotateY(0deg) scale(1);
+  animation: cardMaterialize 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes cardMaterialize {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.8) rotateX(-15deg);
+    filter: blur(10px);
+  }
+  30% {
+    opacity: 0.3;
+    transform: translateY(20px) scale(0.9) rotateX(-5deg);
+    filter: blur(5px);
+  }
+  60% {
+    opacity: 0.7;
+    transform: translateY(-10px) scale(1.05) rotateX(2deg);
+    filter: blur(2px);
+  }
+  80% {
+    opacity: 0.9;
+    transform: translateY(-5px) scale(1.02) rotateX(0deg);
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0deg);
+    filter: blur(0px);
+  }
+}
+
+/* Сдержанные эффекты наведения */
+.conclusionCard:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 
+    var(--shadow-lg),
+    0 8px 25px rgba(var(--color-primary-rgb), 0.08);
+  border-color: var(--color-primary);
+}
+
+.conclusionCard:hover .energyField {
+  opacity: 0.2;
+  transition: opacity 0.5s ease;
+}
+
+.conclusionCard:hover .ambientParticle {
+  opacity: 0.4;
+  animation: gentleFloat 4s infinite;
+}
+
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translate(-50%, -50%) rotate(var(--particle-angle)) translateX(40px) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(var(--particle-angle)) translateX(60px) scale(1);
+    opacity: 0.4;
+  }
+}
+
+/* Граница */
+.conclusionBorderLeft {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.conclusionBorderLeft.blue {
+  background: linear-gradient(180deg, #00d4ff 0%, var(--color-primary) 50%, #ff6b6b 100%);
+}
+
+/* Сдержанная анимация границы при наведении */
+.conclusionCard:hover .conclusionBorderLeft {
+  width: 5px;
+  background: linear-gradient(180deg, #00d4ff 0%, var(--color-primary) 100%);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+}
+
+/* Текст */
+.conclusionCard p {
+  margin: 0;
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  line-height: var(--line-height-normal);
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.conclusionCard:hover p {
+  color: var(--color-text);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .conclusionCard {
+    min-height: 150px;
+    padding: var(--space-16);
+  }
+  
+  .lightningContainer {
+    width: 60px;
+    height: 60px;
+    top: -30px;
+  }
+  
+  .explosionContainer {
+    width: 120px;
+    height: 120px;
+  }
+  
+  /* На мобильных убираем эффекты наведения */
+  .conclusionCard:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .conclusionCard:hover .energyField {
+    opacity: 0;
+  }
+  
+  .conclusionCard:hover .ambientParticle {
+    opacity: 0;
+  }
+}
+
+/* Специальные эффекты для первой и последней карточки */
+.conclusionCard:first-child {
+  background: linear-gradient(135deg, var(--color-surface) 0%, rgba(0, 212, 255, 0.02) 100%);
+}
+
+.conclusionCard:last-child {
+  background: linear-gradient(135deg, var(--color-surface) 0%, rgba(255, 107, 107, 0.02) 100%);
+}
