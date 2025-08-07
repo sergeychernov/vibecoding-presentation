@@ -1,7 +1,0 @@
-.toolsOverview {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-32);
-  width: 100%;
-  max-width: 1000px;
-}

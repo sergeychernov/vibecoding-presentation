@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Slide.module.css';
-import conclusionStyles from './ConclusionsSlide.module.css';
+import CardsLayout from '../layouts/CardsLayout';
 import ConclusionCard from '../cards/ConclusionCard';
 
 interface SlideProps {
@@ -42,7 +41,7 @@ const ConclusionsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
     if (isActive && !isVisited) {
       const timer = setTimeout(() => {
         setAnimateCards(true);
-      }, 500); // Увеличил задержку для более драматичного эффекта
+      }, 500);
       return () => clearTimeout(timer);
     } else if (isVisited) {
       setAnimateCards(true);
@@ -50,7 +49,7 @@ const ConclusionsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   }, [isActive, isVisited]);
 
   const PerformanceChart = () => (
-    <div className={conclusionStyles.performanceChart}>
+    <div style={{ padding: 'var(--space-16)' }}>
       <svg width="300" height="120" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
         <rect width="300" height="120" fill="var(--color-bg-1)" rx="8"></rect>
         
@@ -112,25 +111,26 @@ const ConclusionsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   );
 
   return (
-    <div className={`${styles.slideContent} ${styles.scrollableSlide}`}>
-      <h2>Выводы и перспективы</h2>
-      <div className={conclusionStyles.scrollableWrapper}>
-        <div className={styles.scrollableContent}>
-          <div className={conclusionStyles.conclusionsCards}>
-            {conclusions.map((conclusion, index) => (
-              <ConclusionCard
-                key={index}
-                text={conclusion.text}
-                hasChart={conclusion.hasChart}
-                index={index}
-                isVisible={animateCards}
-                chart={conclusion.hasChart ? <PerformanceChart /> : undefined}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
+    <CardsLayout 
+      title="Выводы и перспективы" 
+      cols="2" 
+      horizontalGap="medium" 
+      verticalGap="medium" 
+      contentWidth="wide"
+      scrollable={true}
+      animate={animateCards}
+      animationDelay={250}
+    >
+      {conclusions.map((conclusion, index) => (
+        <ConclusionCard
+          key={index}
+          text={conclusion.text}
+          hasChart={conclusion.hasChart}
+          index={index}
+          chart={conclusion.hasChart ? <PerformanceChart /> : undefined}
+        />
+      ))}
+    </CardsLayout>
   );
 };
 

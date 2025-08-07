@@ -7,13 +7,20 @@
   padding: var(--space-32);
   border: 2px solid var(--color-border);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   max-width: 350px;
   min-width: 300px;
+  opacity: 0;
+  transform: translateY(60px) scale(0.8);
+}
+
+.qrCard.animate {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .qrCard:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) scale(1.02);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   border-color: var(--color-primary);
 }

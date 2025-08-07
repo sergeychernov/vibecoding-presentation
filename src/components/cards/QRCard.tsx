@@ -7,9 +7,18 @@ interface QRCardProps {
   description: string;
   url: string;
   icon: string;
+  animate?: boolean;
+  animationDelay?: string;
 }
 
-const QRCard: React.FC<QRCardProps> = ({ title, description, url, icon }) => {
+const QRCard: React.FC<QRCardProps> = ({ 
+  title, 
+  description, 
+  url, 
+  icon, 
+  animate = false,
+  animationDelay = '0ms'
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -35,7 +44,10 @@ const QRCard: React.FC<QRCardProps> = ({ title, description, url, icon }) => {
   }, [url]);
 
   return (
-    <div className={styles.qrCard}>
+    <div 
+      className={`${styles.qrCard} ${animate ? styles.animate : ''}`}
+      style={{ animationDelay }}
+    >
       <div className={styles.qrCodeWrapper}>
         <canvas 
           ref={canvasRef}

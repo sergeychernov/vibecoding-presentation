@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ModelCard from '../cards/ModelCard';
-import styles from './Slide.module.css';
+import CardsLayout from '../layouts/CardsLayout';
 
 interface SlideProps {
   isActive: boolean;
@@ -19,9 +19,6 @@ const ModelsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
     { icon: '⚡', name: 'Grok', description: 'Модель от xAI' },
   ];
 
-  // Разные паттерны задержек для более интересной анимации
-  const animationDelays = ['0ms', '150ms', '100ms', '250ms', '200ms', '350ms'];
-
   useEffect(() => {
     if (isActive && !isVisited) {
       const timer = setTimeout(() => {
@@ -34,21 +31,24 @@ const ModelsSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   }, [isActive, isVisited]);
 
   return (
-    <div className={styles.slideContent}>
-      <h2>Протестированные модели</h2>
-      <div className={styles.modelsGrid}>
-        {models.map((model, index) => (
-          <ModelCard
-            key={model.name}
-            icon={model.icon}
-            name={model.name}
-            description={model.description}
-            animate={animateCards}
-            animationDelay={animationDelays[index]}
-          />
-        ))}
-      </div>
-    </div>
+    <CardsLayout 
+      title="Протестированные модели" 
+      cols="3" 
+      horizontalGap="large" 
+      verticalGap="medium"
+      contentWidth="narrow"
+      animate={animateCards}
+      animationDelay={150}
+    >
+      {models.map((model) => (
+        <ModelCard
+          key={model.name}
+          icon={model.icon}
+          name={model.name}
+          description={model.description}
+        />
+      ))}
+    </CardsLayout>
   );
 };
 

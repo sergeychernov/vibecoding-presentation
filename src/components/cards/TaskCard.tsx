@@ -6,6 +6,7 @@ interface TaskCardProps {
   description: string;
   tool: string;
   rating: 'conditional' | 'satisfactory' | 'excellent';
+  icon: string;
   animate?: boolean;
   animationDelay?: string;
 }
@@ -15,29 +16,10 @@ const TaskCard: React.FC<TaskCardProps> = ({
   description,
   tool,
   rating,
+  icon,
   animate = false,
   animationDelay = '0ms'
 }) => {
-  // Функция для получения иконки в зависимости от названия задачи
-  const getTaskIcon = (taskTitle: string): string => {
-    const title = taskTitle.toLowerCase();
-    
-    if (title.includes('тест')) return '🧪';
-    if (title.includes('pipeline') || title.includes('github')) return '🔄';
-    if (title.includes('лог') || title.includes('ошибок')) return '🔍';
-    if (title.includes('ревью') || title.includes('код')) return '👀';
-    if (title.includes('прототип')) return '🎨';
-    if (title.includes('библиотек') || title.includes('обновление')) return '📦';
-    if (title.includes('баг') || title.includes('фикс')) return '🐛';
-    if (title.includes('бд') || title.includes('база')) return '🗄️';
-    if (title.includes('документация')) return '📚';
-    if (title.includes('перевод')) return '🌍';
-    if (title.includes('регулярные') || title.includes('regex')) return '🔤';
-    if (title.includes('npm') || title.includes('opensource')) return '📦';
-    
-    return '⚡'; // дефолтная иконка
-  };
-
   return (
     <div
       className={`${styles.taskCard} ${animate ? styles.animate : ''} ${styles[rating]}`}
@@ -53,7 +35,7 @@ const TaskCard: React.FC<TaskCardProps> = ({
       
       <div className={styles.taskFooter}>
         <span className={styles.taskTool}>{tool}</span>
-        <div className={styles.taskIcon}>{getTaskIcon(title)}</div>
+        <div className={styles.taskIcon}>{icon}</div>
       </div>
     </div>
   );

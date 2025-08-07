@@ -5,25 +5,29 @@ interface ConclusionCardProps {
   text: string;
   hasChart?: boolean;
   index: number;
-  isVisible: boolean;
+  isVisible?: boolean;
   chart?: React.ReactNode;
+  animate?: boolean;
+  animationDelay?: string;
 }
 
 const ConclusionCard: React.FC<ConclusionCardProps> = ({ 
   text, 
   hasChart = false, 
   index, 
-  isVisible,
-  chart 
+  isVisible = true,
+  chart,
+  animate = false,
+  animationDelay = '0ms'
 }) => {
   const [showExplosion, setShowExplosion] = useState(false);
   const [showLightning, setShowLightning] = useState(false);
   const [animateCard, setAnimateCard] = useState(false);
 
   useEffect(() => {
-    if (isVisible) {
-      // Задержка для каждой карточки
-      const delay = index * 200;
+    if (animate) {
+      // Используем animationDelay из пропсов
+      const delay = parseInt(animationDelay) || 0;
       
       // Сначала показываем молнию
       const lightningTimer = setTimeout(() => {
@@ -53,7 +57,7 @@ const ConclusionCard: React.FC<ConclusionCardProps> = ({
         clearTimeout(cleanupTimer);
       };
     }
-  }, [isVisible, index]);
+  }, [animate, animationDelay]);
 
   const generateLightningPath = () => {
     const paths = [
@@ -132,7 +136,7 @@ const ConclusionCard: React.FC<ConclusionCardProps> = ({
           index % 2 === 0 ? styles.fromRight : styles.fromLeft
         }`}
         style={{
-          animationDelay: `${index * 150}ms`
+          animationDelay: animationDelay
         }}
         tabIndex={0}
       >

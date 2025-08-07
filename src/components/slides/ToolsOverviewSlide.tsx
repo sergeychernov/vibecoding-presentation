@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ToolCard from '../cards/ToolCard';
-import styles from './Slide.module.css';
-import toolsStyles from './ToolsOverviewSlide.module.css';
+import CardsLayout from '../layouts/CardsLayout';
 
 interface SlideProps {
   isActive: boolean;
@@ -38,34 +37,35 @@ const ToolsOverviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
   }, [isActive, isVisited]);
 
   return (
-    <div className={styles.slideContent}>
-      <h2>Обзор инструментов</h2>
-      <div className={toolsStyles.toolsOverview}>
-        <ToolCard
-          title="Gemini Plugin, Cursor и Trae.ai"
-          category="Продвинутые IDE с автодополнением кода и встроенным AI-ассистентом"
-          features={cursorToolFeatures}
-          note={{
-            type: 'note',
-            text: 'Отличие Gemini Plugin: работает только с Google моделью и требует Google Cloud'
-          }}
-          animate={animateCards}
-          animationDelay="0ms"
-        />
-        
-        <ToolCard
-          title="Codex"
-          category="Интегрируется с GitHub-репозиторием: любая задача = Pull Request"
-          features={codexToolFeatures}
-          note={{
-            type: 'warning',
-            text: 'Ограничение: технология еще сырая — требует доработки для продакшн-среды'
-          }}
-          animate={animateCards}
-          animationDelay="200ms"
-        />
-      </div>
-    </div>
+    <CardsLayout 
+      title="Обзор инструментов" 
+      cols="2" 
+      horizontalGap="medium" 
+      verticalGap="medium" 
+      contentWidth="medium"
+      animate={animateCards}
+      animationDelay={200}
+    >
+      <ToolCard
+        title="Gemini Plugin, Cursor и Trae.ai"
+        category="Продвинутые IDE с автодополнением кода и встроенным AI-ассистентом"
+        features={cursorToolFeatures}
+        note={{
+          type: 'note',
+          text: 'Отличие Gemini Plugin: работает только с Google моделью и требует Google Cloud'
+        }}
+      />
+      
+      <ToolCard
+        title="Codex"
+        category="Интегрируется с GitHub-репозиторием: любая задача = Pull Request"
+        features={codexToolFeatures}
+        note={{
+          type: 'warning',
+          text: 'Ограничение: технология еще сырая — требует доработки для продакшн-среды'
+        }}
+      />
+    </CardsLayout>
   );
 };
 
