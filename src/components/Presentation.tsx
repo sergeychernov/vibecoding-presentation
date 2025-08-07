@@ -5,10 +5,11 @@ import ToolsOverviewSlide from './slides/ToolsOverviewSlide';
 import ModelsSlide from './slides/ModelsSlide';
 import ResultsSlide from './slides/ResultsSlide';
 import ConclusionsSlide from './slides/ConclusionsSlide';
+import QRCodesSlide from './slides/QRCodesSlide';
 
 const Presentation: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(1);
-  const totalSlides = 5;
+  const totalSlides = 6;
   const [visitedSlides, setVisitedSlides] = useState(new Set([1]));
 
   const slides = [
@@ -17,6 +18,7 @@ const Presentation: React.FC = () => {
     { id: 3, component: ModelsSlide },
     { id: 4, component: ResultsSlide },
     { id: 5, component: ConclusionsSlide },
+    { id: 6, component: QRCodesSlide },
   ];
 
   const nextSlide = useCallback(() => {
