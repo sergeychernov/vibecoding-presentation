@@ -1,0 +1,103 @@
+.qrCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-32);
+  border: 2px solid var(--color-border);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  max-width: 350px;
+  min-width: 300px;
+}
+
+.qrCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-color: var(--color-primary);
+}
+
+.qrCodeWrapper {
+  background: white;
+  padding: var(--space-16);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--color-border);
+  margin-bottom: var(--space-24);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qrCode {
+  display: block;
+  border-radius: var(--border-radius-sm);
+}
+
+.qrInfo {
+  text-align: center;
+  width: 100%;
+}
+
+.qrInfo h3 {
+  font-size: var(--font-size-xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-12);
+  font-weight: var(--font-weight-semibold);
+}
+
+.qrDescription {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-16);
+  font-weight: var(--font-weight-medium);
+}
+
+.qrLink {
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  text-decoration: none;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  background: var(--color-background-tertiary);
+  padding: var(--space-8) var(--space-12);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--color-border);
+  transition: all 0.2s ease;
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+.qrLink:hover {
+  background: var(--color-primary);
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .qrCard {
+    min-width: 280px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .qrCard {
+    padding: var(--space-20);
+  }
+  
+  .qrInfo h3 {
+    font-size: var(--font-size-lg);
+  }
+  
+  .qrDescription {
+    font-size: var(--font-size-sm);
+  }
+  
+  .qrLink {
+    font-size: var(--font-size-xs);
+    padding: var(--space-6) var(--space-8);
+  }
+}
