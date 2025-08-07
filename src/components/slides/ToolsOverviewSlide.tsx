@@ -42,7 +42,7 @@ const ToolsOverviewSlide: React.FC<SlideProps> = ({ isActive, isVisited }) => {
       <h2>Обзор инструментов</h2>
       <div className={toolsStyles.toolsOverview}>
         <ToolCard
-          title="Cursor, Gemini Plugin и Trae.ai"
+          title="Gemini Plugin, Cursor и Trae.ai"
           category="Продвинутые IDE с автодополнением кода и встроенным AI-ассистентом"
           features={cursorToolFeatures}
           note={{
